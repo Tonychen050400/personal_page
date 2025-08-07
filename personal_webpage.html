@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haoyu Chen's Website</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 40px;
+            padding: 40px 20px;
+        }
+
+        .sidebar {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            height: fit-content;
+            position: sticky;
+            top: 40px;
+        }
+
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            overflow: hidden;
+            border: 4px solid #e9ecef;
+        }
+
+        .profile-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #6c757d, #495057);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            color: white;
+        }
+
+        .sidebar h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 8px;
+            color: #212529;
+        }
+
+        .pronouns {
+            text-align: center;
+            color: #6c757d;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .contact-info {
+            list-style: none;
+        }
+
+        .contact-info li {
+            margin: 12px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            color: #495057;
+        }
+
+        .contact-info a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        .main-content {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .nav-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 15px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: #495057;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: #e9ecef;
+            color: #212529;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 6px;
+            transition: background 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background: #e9ecef;
+        }
+
+        .section-content h2 {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: #212529;
+            font-weight: 600;
+        }
+
+        .section-content p {
+            margin-bottom: 20px;
+            color: #495057;
+            line-height: 1.7;
+        }
+
+        .research-highlight {
+            background: #f8f9fa;
+            border-left: 4px solid #0066cc;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .professor-link {
+            color: #0066cc;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .professor-link:hover {
+            text-decoration: underline;
+        }
+
+        .cv-link {
+            display: inline-block;
+            background: #0066cc;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            margin-top: 15px;
+            transition: background 0.3s ease;
+        }
+
+        .cv-link:hover {
+            background: #0052a3;
+        }
+
+        .publications-section {
+            display: none;
+        }
+
+        .publications-section.active {
+            display: block;
+        }
+
+        .publication-item {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 4px solid #28a745;
+        }
+
+        .publication-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #212529;
+            margin-bottom: 10px;
+        }
+
+        .publication-authors {
+            color: #495057;
+            margin-bottom: 8px;
+        }
+
+        .publication-authors .highlight {
+            font-weight: 600;
+            color: #212529;
+        }
+
+        .publication-venue {
+            color: #6c757d;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        .publication-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #0066cc;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #0052a3;
+        }
+
+        .btn-secondary {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #218838;
+        }
+
+        .education-item {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 4px solid #6f42c1;
+        }
+
+        .education-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .education-header h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #212529;
+            margin: 0;
+            flex: 1;
+        }
+
+        .education-date {
+            color: #6c757d;
+            font-weight: 500;
+            font-size: 0.9rem;
+            margin-left: 20px;
+        }
+
+        .education-details {
+            color: #495057;
+        }
+
+        .institution {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #6f42c1;
+            margin-bottom: 5px;
+        }
+
+        .additional-info {
+            color: #6c757d;
+            margin-bottom: 5px;
+        }
+
+        .gpa {
+            font-weight: 500;
+            color: #212529;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 20px 10px;
+            }
+
+            .sidebar {
+                position: static;
+            }
+
+            .nav-header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                gap: 10px;
+            }
+
+            .education-header {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .education-date {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="profile-img">
+                <div class="profile-placeholder">👤</div>
+                <img src="./assets/personal_photo.png" alt="Haoyu Chen">
+            </div>
+            <h1>Haoyu Chen</h1>
+            <div class="pronouns">He/Him/His</div>
+            
+            <ul class="contact-info">
+                <li>📍 Massachusetts</li>
+                <li>🏫 Harvard University</li>
+                <li>📧 <a href="mailto:tonychen54816@gmail.com">Email</a></li>
+                <li>🎓 <a href="https://scholar.google.com/citations?user=WQnlt4YAAAAJ&hl=en">Google Scholar</a></li>
+                <li>💻 <a href="https://github.com/Tonychen050400">GitHub</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <nav class="nav-header">
+                <div class="nav-links">
+                    <a href="#" class="nav-link active" onclick="showSection('about')">About</a>
+                    <a href="#" class="nav-link" onclick="showSection('publications')">Publications</a>
+                    <a href="#" class="nav-link" onclick="showSection('education')">Education</a>
+                </div>
+                <button class="theme-toggle" onclick="toggleTheme()">⚙️</button>
+            </nav>
+
+            <!-- About Section -->
+            <div id="about-section" class="section-content">
+                <div class="bio">
+                    <p>I am an incoming master's student in Computational Science and Engineering at Harvard University. I obtained my M.S. in Electrical and Computer Engineering from Carnegie Mellon University in 2023, and my B.S. in Computer Science and Mathematics (with a minor in Economics) from Rensselaer Polytechnic Institute in 2022.</p>
+
+                    <p>During my master's studies, I worked with <a href="#" class="professor-link">Prof. Min Xu</a> on 4D reconstruction and anomaly detection systems. I also joined the CCVL Lab at Johns Hopkins University, working with <a href="#" class="professor-link">Prof. Alan Yuille</a> on 3D spatial reasoning benchmarks and synthetic dataset generation. My current research interests lie in embodied AI with spatiotemporal intelligence and physically plausible reconstruction.</p>
+
+                    <p>During my undergraduate studies, I worked on ethical AI and decision-making with <a href="#" class="professor-link">Prof. Lirong Xia</a>.</p>
+
+                    <p>You can find my CV here: <a href="./assets/Haoyu_Chen_Resume.pdf" class="cv-link">Haoyu's CV</a></p>
+                </div>
+            </div>
+
+            <!-- Publications Section -->
+            <div id="publications-section" class="section-content publications-section">
+                <h2>Publications</h2>
+                <p>You can also find my articles on <a href="#" class="professor-link">my Google Scholar profile</a>.</p>
+
+                <h3 style="margin: 30px 0 20px 0; color: #495057;">Conference Papers</h3>
+
+                <div class="publication-item">
+                    <div class="publication-title">Total-Editing: Head Avatar with Editable Appearance, Motion, and Lighting</div>
+                    <div class="publication-authors">
+                        Yizhou Zhao, Chunjiang Liu, <span class="highlight">Haoyu Chen</span>, Bhiksha Raj, Min Xu, Tadas Baltrusaitis, Mitch Rundle, HsiangTao Wu, Kamran Ghasedi
+                    </div>
+                    <div class="publication-venue">Accepted at ICCV 2025 Workshop E2E3D</div>
+                    <div class="publication-buttons">
+                        <a href="https://arxiv.org/abs/2505.20582" class="btn btn-primary">Paper</a>
+                    </div>
+                </div>
+
+                <div class="publication-item">
+                    <div class="publication-title">Toward Material-Agnostic System Identification from Videos</div>
+                    <div class="publication-authors">
+                        Yizhou Zhao, <span class="highlight">Haoyu Chen</span>, Chunjiang Liu, Zhenyang Li, Charles Herrmann, Junhwa Hur, Yinxiao Li, Ming-Hsuan Yang, Bhiksha Raj, Min Xu
+                    </div>
+                    <div class="publication-venue">Accepted at ICCV 2025 (Main Conference)</div>
+                    <div class="publication-buttons">
+                        <a href="https://www.arxiv.org/abs/2508.01112" class="btn btn-primary">Paper</a>
+                        <a href="https://github.com/Skaldak/MASIV" class="btn btn-secondary">Project Page</a>
+                    </div>
+                </div>
+
+                <div class="publication-item">
+                    <div class="publication-title">3DSRBench: A Comprehensive 3D Spatial Reasoning Benchmark</div>
+                    <div class="publication-authors">
+                        Wufei Ma, <span class="highlight">Haoyu Chen</span>, Guofeng Zhang, Celso Mde Melo, Jieneng Chen, Alan Yuille
+                    </div>
+                    <div class="publication-venue">Accepted at ICCV 2025 (Main Conference)</div>
+                    <div class="publication-buttons">
+                        <a href="https://arxiv.org/abs/2412.07825" class="btn btn-primary">Paper</a>
+                        <a href="https://huggingface.co/datasets/ccvl/3DSRBench" class="btn btn-secondary">🤗 Hugging Face Data</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Education Section -->
+            <div id="education-section" class="section-content publications-section">
+                <h2>Education</h2>
+                
+                <div class="education-item">
+                    <div class="education-header">
+                        <h3>Master of Science in Electrical and Computer Engineering</h3>
+                        <div class="education-date">September 2022 - December 2023</div>
+                    </div>
+                    <div class="education-details">
+                        <div class="institution">Carnegie Mellon University</div>
+                        <div class="gpa">GPA: 3.79/4.0</div>
+                    </div>
+                </div>
+
+                <div class="education-item">
+                    <div class="education-header">
+                        <h3>Bachelor of Science in Computer Science and Mathematics</h3>
+                        <div class="education-date">September 2018 - May 2022</div>
+                    </div>
+                    <div class="education-details">
+                        <div class="institution">Rensselaer Polytechnic Institute</div>
+                        <div class="additional-info">Minor in Economics</div>
+                        <div class="gpa">GPA: 3.93/4.0</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function showSection(section) {
+            // Hide all sections
+            document.getElementById('about-section').style.display = 'none';
+            document.getElementById('publications-section').classList.remove('active');
+            document.getElementById('education-section').classList.remove('active');
+            
+            // Remove active class from all nav links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+
+            // Show selected section and mark nav as active
+            if (section === 'about') {
+                document.getElementById('about-section').style.display = 'block';
+                document.querySelector('[onclick="showSection(\'about\')"]').classList.add('active');
+            } else if (section === 'publications') {
+                document.getElementById('publications-section').classList.add('active');
+                document.querySelector('[onclick="showSection(\'publications\')"]').classList.add('active');
+            } else if (section === 'education') {
+                document.getElementById('education-section').classList.add('active');
+                document.querySelector('[onclick="showSection(\'education\')"]').classList.add('active');
+            }
+        }
+
+        function toggleTheme() {
+            // Simple theme toggle placeholder
+            const body = document.body;
+            if (body.style.background === 'rgb(33, 37, 41)') {
+                body.style.background = '#f8f9fa';
+                body.style.color = '#333';
+            } else {
+                body.style.background = '#212529';
+                body.style.color = '#f8f9fa';
+            }
+        }
+
+        // Initialize with about section
+        document.addEventListener('DOMContentLoaded', function() {
+            showSection('about');
+        });
+    </script>
+</body>
+</html>
